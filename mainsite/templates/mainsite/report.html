@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+    <title>Welcome</title>
+    <style>
+        body {
+            font-family: "Lato", sans-serif;
+        }
+
+
+        .vtable {
+            background-color: white;
+            padding-top: 40px;
+            border-collapse: collapse;
+			width: 100%;
+			margin-top: 120px;
+        }
+
+        .vtable th {
+            padding-top: 20px;
+            padding-bottom: 20px;
+            padding-left: 10px;
+
+            font-weight: bold;
+            font-family: Arial, Helvetica, sans-serif;
+            border: 1px solid black;
+        }
+
+        .vtable td {
+            padding: 10px;
+
+            font-weight: normal;
+            font-family: Arial, Helvetica, sans-serif;
+            border: 1px solid black;
+        }
+
+
+        #mySidenav {
+            box-sizing: border-box;
+            font-weight: 400;
+            color: #73879C;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            line-height: 1.471;
+            font-size: 13px;
+            font-family: "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+            background: #2A3F54;
+        }
+
+        .sidenav a {
+            color: #73879C;
+        }
+
+        .sidenav {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+        }
+
+        .sidenav a {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 25px;
+
+            display: block;
+            transition: 0.3s;
+        }
+
+        .sidenav a:hover {
+            color: #f1f1f1;
+        }
+
+        .sidenav .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+        }
+
+        .headline {
+            color: #73879C;
+            background: #EDEDED;
+            font-family: "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1.471;
+            height: 50px;
+        }
+
+        @media screen and (max-height: 450px) {
+            .sidenav {
+                padding-top: 15px;
+            }
+
+            .sidenav a {
+                font-size: 18px;
+            }
+        }
+
+        .right {
+            margin-top: 20px;
+            border: white solid 2px;
+            padding: 5px;
+            text-align: center;
+            background-color: white;
+            border-radius: 5px;
+        }
+
+        .push a {
+            font-size: 1.65rem;
+			font-weight: bold;
+        }
+
+        .specialclass {
+            font-weight: bold;
+        }
+
+        .specialclass p {
+            margin-top: 20px;
+		}
+		.academic {
+			margin-top: 100px;
+		}
+		.push :hover {
+			border: 1px  solid #73879C;
+			box-shadow: 0px 0px 4px white inset;
+		}
+    </style>
+</head>
+
+<body style="background: #f1f1f1">
+
+
+
+
+    <div class="container-fluid" style="margin-right:30px;">
+        <div class="row" style="margin-bottom: 20px;">
+            <div class="col-md-3">
+                <div id="mySidenav" class="sidenav">
+                    <div class="push">
+						<a id="closenav" href="" class="closebtn" onclick="closeNav()">&times;</a>
+						<h3 style="text-align: center;color: white; margin-top: -20px; margin-bottom: 20px;">Deshi
+							Kendra, Latur</h3>
+						<a id="Homework" href="{% url 'homework' %}" onclick=Homework()>Homework</a>
+						<a id="personalInfo" href="{% url 'personalInfo' %}" onclick=personal_info()>Personal Information</a>
+						<a id="academicReport" href="{% url 'academic' %}" onclick=academic_report()>Academic Report</a>
+						<a id="videoLecture" href="{% url 'videolecture' %}" onclick=video_lecture()>Video Lectures</a>
+                        <a id="feedback" href="{% url 'feedback' %}" onclick=feedback()>Feedback</a>
+                        <a id="logout" href="{% url 'logout' %}" onclick=logout()>Log Out</a>
+					</div>
+                </div>
+                <span id="opennav" style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
+
+
+
+
+
+
+
+
+
+            </div>
+                
+            <div class="specialclass col-md-7">
+                <form  method = 'POST' action="{%url 'reportlaptop' %}">
+                    {% csrf_token %}
+                <span>
+                    <div class="col-md-3" style="padding-left: 0px;">
+                        <p>Select Class :</p>
+                        <select class="form-control" id="sel11" name="class">
+
+                            <option> 10</option>
+                            <option>9</option>
+                            <option>8</option>
+                            <option>7</option>
+                            <option>6</option>
+                            <option>5</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <p>Select Term:</p>
+                        <select class="form-control" id="sel22" name="term">
+                            <option value= 1>First</option>
+                            <option value=2>Second</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        
+                        <button style="margin-top: 49px;width: 70px;" class="form-control" type="submit">Submit</button>
+                    </div>
+                </span>
+            </form>
+
+            <h2 style="margin-top: 200px;">{{error_message}}</h2>
+            <div class="academic">
+                {% for i in result %}
+				<h3 style="margin-bottom: -100px;">{{i.exam}}</h3>
+                <table class="vtable">
+					
+                    <tr>
+                        <th>
+                            Subject
+
+                        </th>
+
+                        <th>
+                            Mathematics
+                        </th>
+						<th>
+                            Social Science
+                        </th>
+						<th>
+							Hindi
+                        </th>
+						<th>
+                            English
+                        </th>
+						<th>
+                            Science
+                        </th>
+						<th>
+                            Marathi
+                        </th>
+                        <th>
+                            Total
+                        </th>
+                        
+
+                        
+                    </tr>
+                    <tr>
+                        <th>Marks Obtained</th>
+                        <td id="first"> 
+                            {{i.Mathematics}}
+                        </td>
+						<td id="second">
+                            {{i.SocialScience}}
+                        </td>
+						<td id="third">
+							{{i.Hindi}}
+                        </td>
+						<td id="fourth">
+                            {{i.English}}
+                        </td>
+						<td id="fifth">
+                            {{i.Science}}
+                        </td>
+						<td id="sixth">
+                            {{i.Marathi}}
+                        </td>
+                        <td id="obtained">
+                           {{i.Total_obtained_marks}}
+                        </td>
+
+                       
+                    </tr>
+                    <tr>
+                        <th>Maximum Marks</th>
+                        <td>
+                            {{i.Maximum_marks_for_each_subject}}
+                        
+                        </td>
+                        <td>
+                            {{i.Maximum_marks_for_each_subject}}
+						</td>
+						<td>
+                            {{i.Maximum_marks_for_each_subject}}
+                        </td>
+                        <td>
+                            {{i.Maximum_marks_for_each_subject}}
+						</td>
+						<td>
+                            {{i.Maximum_marks_for_each_subject}}
+                        </td>
+                        <td>
+                            {{i.Maximum_marks_for_each_subject}}
+                        </td>
+                        <td id="total">
+                            {{i.Total_maximum_marks}}
+                        </td>
+                    </tr>
+
+                </table>
+                {% endfor %}
+			</div>
+			
+
+
+                    <div class="col-md-6" style="margin-top: 50px;">
+                        <h4 style="margin-top: 50px;{{hide}}">Your Term overall percentage graph</h4>
+          
+          
+					<canvas id="myChart" style="width: 200px; height: 200px;{{hide}}"></canvas>
+					<script>
+					var ctx = document.getElementById('myChart').getContext('2d');
+					var myChart = new Chart(ctx, {
+						type: 'bar',
+						data: {
+							labels: ['You', 'Class Topper', 'School Topper'],
+							datasets: [{
+								label: 'Marks',
+								data: [{{your_marks}}, {{class_topper}}, {{school_topper}}],
+								backgroundColor: [
+									'pink',
+									'lightgreen',
+									'lightblue'
+									
+								],
+								borderColor: [
+									'red', 
+									'green', 
+									'blue'
+								],
+								borderWidth: 1, 
+								width: 2
+							}]
+						},
+						options: {
+							scales: {
+								yAxes: [{
+									ticks: {
+										beginAtZero: true
+									}
+								}], 
+								xAxes: [{
+									// Change here
+									barPercentage: 0.5, 
+									
+								}], 
+								
+							}
+						}
+					});
+					</script>
+                </div>
+                
+           
+           
+
+
+
+            <div class="chart col-md-6" style="margin-top: 50px;{{hide}}">
+                <h5 style="margin-top: 10px">Select Subject for analysis</h5>
+                <h5 id="nodata"></h5>
+                <div class="col-md-7">
+                <select class="form-control" name="sub" id="sub">
+                    <option value="Mathematics">Mathematics</option>
+                    <option value="Science">Science</option>
+                    <option value="SocialScience">Social Science</option>
+                    <option value="Marathi">Marathi</option>
+                    <option value="Hindi">Hindi</option>
+                    <option value="English">English</option>
+                </select>
+            </div>
+            <div class="col-md-5">
+                <button id="getdata" class="form-control btn btn-info" type="submit">Submit</button>
+            </div>
+            <hr>
+            <hr>
+                <canvas id="myChart1" style="width: 200px; height: 200px;{{hide}}"></canvas>
+                <script>
+                    var yourmarks, schooltopper, classtopper;
+                    $("#getdata").click(function () {
+                        var subject = $('#sub').val();
+                        var std = {{class}}
+                        var term = {{term}}
+                        $.ajax({
+                          url: '{% url "subjectAnalysis" %}',
+                          data: {
+                            'subject': subject,
+                            'standard': std, 
+                            'term': term
+                          },
+                          dataType: 'json',
+                          success: function (data) {
+                            if (data.error) {
+                              document.getElementById('nodata').innerHTML=data.error_message;
+                            }
+                            yourmarks = data.your_marks
+                            schooltopper = data.school_topper
+                            classtopper = data.class_topper
+                          }
+                        });
+
+
+                        var ctx = document.getElementById('myChart1').getContext('2d');
+                var myChart1 = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['You', 'Class Topper', 'School Topper'],
+                        datasets: [{
+                            label: 'Marks',
+                            data: [yourmarks, classtopper, schooltopper],
+                            backgroundColor: [
+                                'pink',
+                                'lightgreen',
+                                'lightblue'
+                                
+                            ],
+                            borderColor: [
+                                'red', 
+                                'green', 
+                                'blue'
+                            ],
+                            borderWidth: 1, 
+                            width: 2
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }], 
+                            xAxes: [{
+                                // Change here
+                                barPercentage: 0.5, 
+                                
+                            }], 
+                            
+                        }
+                    }
+                });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                  
+                      });
+
+
+
+
+
+                      console.log(yourmarks);
+                      console.log('not sure');
+
+                
+                </script>
+            </div>
+           
+            
+        </div>
+
+
+
+
+				
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+
+
+            <div class="col-md-2">
+
+                <div class="right">
+                    <p style="text-align: left; color: #73879C; font-weight: bold;font-size: 1.7rem;" class="m-2">Photo
+                    </p>
+                    <img src="/media/{{request.user.student.profile.image}}" class="img-circle" alt="Cinque Terre" width="150" height="150">
+                    <p>Roshan Bangar</p>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+
+    <script>
+        if (screen.width > 720) {
+			document.getElementById('academicReport').href = '{% url "reportlaptop" %}';
+		}
+		else {
+			document.getElementById('academicReport').href = '{% url "reportmobile" %}';
+						
+		}
+        document.getElementById('personalInfo').style = 'color: red';
+        academic_report();
+        if (screen.width > 720) {
+            document.getElementById('opennav').style = 'display: none;';
+            document.getElementById('closenav').style = 'display: none;';
+            document.getElementById('mySidenav').style = 'display: block;width: 250px;';
+
+        }
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "100%";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+        }
+        function Homework() {
+            document.getElementById('Homework').style = 'color: red;';
+            document.getElementById('personalInfo').style = 'color: #73879C; ';
+            document.getElementById('academicReport').style = 'color: #73879C;';
+            document.getElementById('videoLecture').style = 'color: #73879C;';
+            document.getElementById('feedback').style = 'color: #73879C;';
+
+
+
+        }
+        function personal_info() {
+            document.getElementById('Homework').style = 'color: #73879C;';
+            document.getElementById('personalInfo').style = 'color: red';
+            document.getElementById('academicReport').style = 'color: #73879C;';
+            document.getElementById('videoLecture').style = 'color: #73879C;';
+            document.getElementById('feedback').style = 'color: #73879C;';
+
+
+
+        }
+        function academic_report() {
+            document.getElementById('Homework').style = 'color: #73879C;';
+            document.getElementById('personalInfo').style = 'color: #73879C;';
+            document.getElementById('academicReport').style = 'color:red;';
+            document.getElementById('videoLecture').style = 'color: #73879C;';
+            document.getElementById('feedback').style = 'color: #73879C;';
+
+
+        }
+        function video_lecture() {
+            document.getElementById('Homework').style = 'color: #73879C;';
+            document.getElementById('personalInfo').style = 'color: #73879C;';
+            document.getElementById('videoLecture').style = 'color: red;';
+            document.getElementById('academicReport').style = 'color: #73879C;';
+            document.getElementById('feedback').style = 'color: #73879C;';
+
+        }
+        function feedback() {
+            document.getElementById('Homework').style = 'color: #73879C;';
+            document.getElementById('personalInfo').style = 'color: #73879C';
+            document.getElementById('feedback').style = 'color: red;';
+            document.getElementById('academicReport').style = 'color: #73879C';
+            document.getElementById('videoLecture').style = 'color: #73879C;';
+
+        }
+        function logout() {
+			document.getElementById('Homework').style = 'color: #73879C;';
+			document.getElementById('personalInfo').style = 'color: #73879C';
+			document.getElementById('feedback').style = 'color: #73879C;';
+			document.getElementById('feedback').style = 'color: red;';
+			document.getElementById('academicReport').style = 'color: #73879C';
+			document.getElementById('videoLecture').style = 'color: #73879C;';
+
+        }
+        
+    </script>
+</body>
+
+</html>
