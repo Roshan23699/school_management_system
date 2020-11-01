@@ -115,6 +115,7 @@ def reportlaptop(request):
 		if len(final) == 0: 
 			return render(request, 'mainsite/report.html', {'error_message': error_message, 'hide': 'display: none;', 'class': class1, 'term': term})
 		else : 
+			#query to find the result of a student and the result of class topper
 			students = Student.objects.filter(standard=request.user.student.standard)
 			results = Result.objects.filter(student__in=students, exam=final[len(final) - 1].exam, standard=class1)
 			school_topper = results.aggregate(Max('Total_obtained_marks'))['Total_obtained_marks__max']
@@ -127,28 +128,29 @@ def reportlaptop(request):
 
 
 def subjectAnalysis(request):
+	#send the subject analysis with the help of json response
 	subject = request.GET.get('subject', None)
 	standard = request.GET.get('standard', None)
 	term1 = request.GET.get('term', None)
-
-
-
-
-
 	class1 = int(standard)
 	term = int(term1)
 	# print(class1)
 	# print(term1)
 	error_message = 'No Records Found'
+	#query to find the result of the particular term
 	final = request.user.student.result_set.filter(standard=class1, term=term)
 
 	if len(final) == 0: 
 		JsonResponse({'error': 'No data found'})
 	else : 
 		students = Student.objects.filter(standard=request.user.student.standard)
+		#query to find all the students in the particular standard
 		results = Result.objects.filter(student__in=students, exam=final[len(final) - 1].exam, standard= class1)
+		#query to finnd the results of all the students
 		school_topper = results.aggregate(Max(subject))[subject + '__max']
+		#query to get the max score
 		students = Student.objects.filter(standard=request.user.student.standard, divison=request.user.student.divison)
+		#query to find the division topper
 		results = Result.objects.filter(student__in=students, exam=final[len(final) - 1].exam, standard=class1)
 		your_marks = request.user.student.result_set.get(term=term, standard=class1, exam=final[len(final) - 1].exam)
 		your_marks = getattr(your_marks, subject)
@@ -173,6 +175,7 @@ def reportmobile(request):
 		if len(final) == 0: 
 			return render(request, 'mainsite/academicreportmobile.html', {'error_message': error_message, 'hide': 'display: none;', 'class': class1, 'term': term})
 		else : 
+			#similar queries here as above
 			print('hre')
 			students = Student.objects.filter(standard=request.user.student.standard)
 			results = Result.objects.filter(student__in=students, exam=final[len(final) - 1].exam,  standard=class1)
@@ -181,6 +184,7 @@ def reportmobile(request):
 			results = Result.objects.filter(student__in=students, exam=final[len(final) - 1].exam)
 			your_marks = final[len(final) - 1].Total_obtained_marks			
 			class_topper = results.aggregate(Max('Total_obtained_marks'))['Total_obtained_marks__max']
+			#query to find the class topper
 			return render(request, 'mainsite/academicreportmobile.html', {'result': final, 'school_topper' : school_topper, 'class_topper': class_topper, 'your_marks': your_marks, 'class': class1, 'term': term})
 
 
@@ -190,23 +194,23 @@ def feedback(request):
 	return render(request, 'mainsite/feedback.html')
 	
 def update(request):
-	
-	# if request.method == 'POST':
-    #     name = request.POST['name']
-    #     mis = request.POST['mis']
-    #     std = request.POST['std']
-    #     divison = request.POST['divison']
-    #     doa = request.POST['doa']
-    #     fatherName = request.POST['fatherName']
-    #     fatherOccupation = request.POST['fatherOccupation']
-    #     motherName = request.POST['motherName']
-    #     motherOccupation = request.POST['motherOccupation']
-    #     parentContact1 = request.POST['parentContact1']
-    #     parentContact2 = request.POST['parentContact2']
-    #     temporaryAddress = request.POST['temporaryAddress']
-    #     parmenantAddress = request.POST['parmenantAddress']
-    #     studentContact = request.POST['studentContact']
-    # else:
+	# query to update a record
+	if request.method == 'POST':
+                name = request.POST['name']
+                mis = request.POST['mis']
+                std = request.POST['std']
+                divison = request.POST['divison']
+                doa = request.POST['doa']
+                fatherName = request.POST['fatherName']
+                fatherOccupation = request.POST['fatherOccupation']
+                motherName = request.POST['motherName']
+                motherOccupation = request.POST['motherOccupation']
+                parentContact1 = request.POST['parentContact1']
+                parentContact2 = request.POST['parentContact2']
+                temporaryAddress = request.POST['temporaryAddress']
+                parmenantAddress = request.POST['parmenantAddress']
+                studentContact = request.POST['studentContact']
+	else:
 		return render(request, 'mainsite/update.html')
 
 def results(request):

@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from .models import Notice, School, Year, Student, Result, Tenth_Result, Homework, Tenth_Topper, Profile
+from .models import Notice, School, Year, Student, Result, Tenth_Result, Homework, Tenth_Topper, Profile, District_state, City_district, Address, Subject, Result, Teacher, Teaches
 from django.contrib.auth.models import User
 
 # Register your models here.
@@ -9,8 +9,8 @@ from django.contrib.auth.models import User
 
 
 admin.site.register(School)
-# admin.site.register(Profile)
-admin.site.register(Result)
+# admin.site.register(Student)
+# admin.site.register(Result)
 
 # admin.site.register(Subject)
 admin.site.register(Notice)
@@ -18,6 +18,13 @@ admin.site.register(Notice)
 # admin.site.register(Divison)
 admin.site.register(Year)
 # admin.site.register(Student, StudentAdmin)
+admin.site.register(Address)
+admin.site.register(District_state)
+admin.site.register(City_district)
+admin.site.register(Subject)
+admin.site.register(Result)
+admin.site.register(Teacher)
+admin.site.register(Teaches)
 
 
 class ResultInline(admin.StackedInline):
