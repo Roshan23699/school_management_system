@@ -171,7 +171,7 @@ class Profile(models.Model):
 	# permenant_address = models.CharField(max_length = 100, blank = True)
 	address_id = models.ForeignKey(Address, on_delete=models.CASCADE)
 	student_contact = models.CharField(max_length = 100, blank = True)
-	image = models.ImageField(upload_to='media/images')
+	image = models.ImageField(upload_to='media/images', default = 'mainsite/images/passport.jpg')
 	def __str__(self):
 		return self.student.studentname + ' profile'
 
