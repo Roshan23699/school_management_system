@@ -25,10 +25,6 @@ class Notice(models.Model):
 	# offer = models.BooleanField(default=False)
 	def __str__(self):
 		return self.heading
-
-
-
-
 class Student(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
 	year = models.ForeignKey(Year, on_delete=models.CASCADE,default=2020)
@@ -103,10 +99,6 @@ class Tenth_Result(models.Model):
 	REQUIRED_FIELDS = [year, heading, ]
 	def __str__(self):
 		return self.year
-
-
-
-
 class Tenth_Topper(models.Model):
 	tenth_result = models.ForeignKey(Tenth_Result, on_delete=models.CASCADE)
 	name = models.CharField(max_length=30, default='')
